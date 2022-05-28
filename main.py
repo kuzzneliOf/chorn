@@ -1,2 +1,2 @@
-print('1')
+print('6')
 print('2')
