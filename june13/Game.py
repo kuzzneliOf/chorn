@@ -1,6 +1,6 @@
 import random
 from tkinter import *
-
+from algorithm import BFS
 
 class Game:
     def __init__(self, end_score):
@@ -21,6 +21,11 @@ class Game:
         self.player_coor = (1, 1)
         self.end_score = end_score
         self.pixel_size = 32
+        self.logic = BFS(self.map, self.player_coor[0], self.player_coor[1])
+        # self.draw()
+
+    def run(self):
+
         self.draw()
 
     def move(self, x, y):
@@ -59,10 +64,17 @@ class Game:
         # self.tk.bind('<Up>', lambda e: self.move(0, -1))
         # self.tk.bind('<Right>', lambda e: self.move(1, 0))
         # self.tk.bind('<Left>', lambda e: self.move(-1, 0))
+        self.tk.bind('m', self.runLogic())
         self.tk.mainloop()
+
+    def runLogic(self):
+        moving = self.logic.run_logic()
+        self.move(moving[0], moving[1])
+        self.tk.after(2000, self.runLogic)
 
     def draw_eat(self):
         self.eat = (random.randint(0, len(self.map) - 1), random.randint(0, len(self.map[0]) - 1))
+        print(self.eat[0],self.eat[1])
         while not self.map[self.eat[0]][self.eat[1]] == '*':
             self.eat = (random.randint(0, len(self.map)), random.randint(0, len(self.map[0])))
         self.map[self.eat[0]][self.eat[1]] = '/'
@@ -92,3 +104,4 @@ class Game:
                                         text="Your score is {}".format(self.score)))
 
 game = Game(10)
+game.run()

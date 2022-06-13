@@ -23,6 +23,7 @@ class BigNode:
         if self.left:
             res += self.left.toPrint() + ' '
         res += str(self.data) + ' '
+
         if self.right:
             res += self.right.toPrint() + ' '
         return res
