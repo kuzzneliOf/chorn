@@ -55,10 +55,10 @@ class Game:
         self.eat_image = PhotoImage(file='./rhombus.png')
         self.draw_eat()
         self.draw_map()
-        self.tk.bind('<Down>', lambda e: self.move(0, 1))
-        self.tk.bind('<Up>', lambda e: self.move(0, -1))
-        self.tk.bind('<Right>', lambda e: self.move(1, 0))
-        self.tk.bind('<Left>', lambda e: self.move(-1, 0))
+        # self.tk.bind('<Down>', lambda e: self.move(0, 1))
+        # self.tk.bind('<Up>', lambda e: self.move(0, -1))
+        # self.tk.bind('<Right>', lambda e: self.move(1, 0))
+        # self.tk.bind('<Left>', lambda e: self.move(-1, 0))
         self.tk.mainloop()
 
     def draw_eat(self):
