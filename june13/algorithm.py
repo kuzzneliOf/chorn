@@ -17,6 +17,7 @@ class BFS:
             print()
         return (x,y)
 
+
     # def running(self):
     #     for (all nodes i) visited[i] = false; // спочатку список відвіданих вузлів порожній
     #     queue.push(start_node); // починаючи
@@ -86,6 +87,8 @@ class Node:
         self.neighbours = []
         self.is_visited = False
         self.sign = sign
+    def getNeigbours(self):
+        return self.neighbours
     def clear(self):
         self.is_visited = False
     def visit(self):
