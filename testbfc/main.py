@@ -1,42 +1,42 @@
-n, s, f = tuple(map(int, input().split()))
+n, s, f = tuple(map(int, input().split())) # Читання 3 змінних
 
-graph = Graph()
-edges = list(range(1, n + 1))
+graph = Graph() # Створення порожньогу графу
+edges = list(range(1, n + 1)) # Створення списку вершин від 1 до максимального номеру вершини
 
-for i in edges:
-    graph.addEdge(i)
-angles = []
+for i in edges: # Перебираю список з вершинами
+    graph.addEdge(i) # Та додаю кожну вершину до графу
+angles = [] # Створення списку ребер
 
-matrix = []
+matrix = [] # Створення списку для читання матриці суміжності
 
-for i in range(n):
-    matrix.append(tuple(map(int, input().split())))
-for i in range(n):
-    for j in range(n):
-        if matrix[i][j] == 1:
-            angles.append(tuple([i+1,j+1]))
+for i in range(n): # Йдемо від 0 до n рядку, який потрібно прочитати
+    matrix.append(tuple(map(int, input().split()))) # Читаємо та зберігаємо всередину матриці суміжності
+for i in range(n): # Перебираємо рядки матриці суміжності
+    for j in range(n): # Перебираємо елементи ряку матриці суміжності
+        if matrix[i][j] == 1: # Якщо між вершинами є ребро, додаємо ці дві вершини до списку ребер
+            angles.append(tuple([i+1,j+1])) # Додаємо ребро
 
 # angles = [(1, 2), (2, 1), (3, 1), (1, 3), (4, 2), (2, 4), (5, 1), (1, 5), (3, 4), (4, 3)]
-for i in angles:
-    graph.addAngle(i[0], i[1])
+for i in angles: # Перебираємо ребра
+    graph.addAngle(i[0], i[1]) # Додаємо ребра до графу
 #
-start = s
-finish = f
-queue = []
-visited = []
-queue.append([start, []])
-results = []
-while len(queue) > 0:
-    current = queue.pop(0)
-    if current[0] == finish:
-        results.append(current[1])
-    else:
-        visited.append(current[0])
-        for i in graph.neighbours(current[0]):
-            if not i in visited:
-                a = current[1].copy()
-                a.append(current[0])
-                queue.append((i, a))
-print(min(list(map(len,results))))
+start = s # Присвоєння стартової вершини
+finish = f # Присвоєння кінцевої вершини
+queue = [] # Створення черги перевірки вершин
+visited = [] # Створення списку відвіданих вершин, які ми не будемо більше додавати до черги
+queue.append([start, []]) # Додаємо стартову вершину до списку
+results = [] # Створення списку з можливими шляхами до фінішу
+while len(queue) > 0: # Алгоритм перевірки вершин працює до тих пір, поки в черзі є вершини на перевірку
+    current = queue.pop(0) # Вирізаємо з черги першу вершину для її перевірки
+    if current[0] == finish: # Якщо ми вже дійшли кінця
+        results.append(current[1]) # Додати до результату шлях, по якому ми йшли до кінця
+    else: # Якщо не дійлшли до кінця
+        visited.append(current[0]) # Додаємо вершину, яку ми перевіряємо, в список відвіданих
+        for i in graph.neighbours(current[0]): # Перебираємо всіх сусідів для перевіряємої вершини
+            if not i in visited: # Якщо цієї вершини немає у відвіданих
+                a = current[1].copy() # Копіюємо список, в якому зберігається шлях до вершини
+                a.append(current[0]) # Додаємо до цього шляху перевіряєму вершину
+                queue.append((i, a)) # Додаємо на перевірку наступну вершину з оновленим шляхом
+print(min(list(map(len,results)))) # Шукаємо найкоротший шлях та виводимо його
 
 
